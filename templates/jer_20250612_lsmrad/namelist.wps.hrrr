@@ -5,7 +5,7 @@
  end_date   = '2025-06-13_00:00:00', '2025-06-11_18:00:00',
  interval_seconds = 3600,
  io_form_geogrid = 2,
- opt_output_from_geogrid_path = './',
+ opt_output_from_geogrid_path = '/glade/derecho/scratch/jsauer/SERDP/20250612/wrf/wps/geogrid/',
 /
 
 &geogrid
