@@ -1,0 +1,29 @@
+# JER 2025-06-12 LSM-RAD replay: WRF baseline for the WRF -> FastEddy 50 m -> 10 m coupling.
+# Run:  python setup_wps_wrf.py -b 20250611_18 -c config/config_jer_20250612_lsmrad_wps_real.yaml
+# Namelists and job templates: templates/jer_20250612_lsmrad (built from likely_similar_lave_namelist.input;
+# see SERDP/20250612/README.md for every change). WRF 4.6 (Jared Lee's prebuilt) stands in for the original 4.7.1.
+sim_hrs: 30
+template_dir: /glade/derecho/scratch/jsauer/SERDP/wps_wrf_workflow/templates/jer_20250612_lsmrad
+wps_ins_dir: /glade/u/home/jaredlee/programs/WPS-4.6-dmpar-casper
+wrf_ins_dir: /glade/u/home/jaredlee/programs/WRF-4.6
+wps_run_dir: /glade/derecho/scratch/jsauer/SERDP/20250612/wrf/wps
+wrf_run_dir: /glade/derecho/scratch/jsauer/SERDP/20250612/wrf/wrf
+grib_dir: /glade/derecho/scratch/jsauer/SERDP/20250612/wrf/hrrr
+ungrib_domain: full
+icbc_model: HRRR
+icbc_source: GoogleCloud   # AWS fails SSL verification from Derecho; same files on the Google Cloud mirror
+icbc_fc_dt: 0
+icbc_analysis: True        # hourly f00 analyses, 2025-06-11 18 UTC .. 2025-06-13 00 UTC
+hrrr_native: False         # pressure-level wrfprs files: 41 metgrid levels + soil (namelist num_metgrid_levels = 41)
+account: NTMA0002
+hostname: derecho          # use the *.derecho job templates (all queues name their PBS server)
+archive: False
+# Stage A: download, geogrid, ungrib, avg_tsfc, metgrid, real (run inside a Casper batch job)
+get_icbc: True
+do_geogrid: True
+do_ungrib: True
+do_avg_tsfc: True
+use_tavgsfc: True
+do_metgrid: True
+do_real: True
+do_wrf: False

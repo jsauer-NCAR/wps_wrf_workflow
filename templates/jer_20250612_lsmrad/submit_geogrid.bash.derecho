@@ -1,0 +1,16 @@
+#!/bin/bash
+# JER 20250612 LSM-RAD replay: geogrid (template copied into the run directory by the workflow;
+# the workflow replaces the -A line with the yaml 'account').
+#PBS -N geogrid
+#PBS -q casper@casper-pbs
+#PBS -l select=1:ncpus=8:mpiprocs=8:mem=40GB
+#PBS -l walltime=0:30:00
+#PBS -j oe
+#PBS -A NTMA0002
+cd $PBS_O_WORKDIR
+export TMPDIR=/glade/derecho/scratch/$USER/temp; mkdir -p $TMPDIR
+module load openmpi
+module list
+touch GEOGRID_BEG
+mpirun -n 8 ./geogrid.exe
+touch GEOGRID_END

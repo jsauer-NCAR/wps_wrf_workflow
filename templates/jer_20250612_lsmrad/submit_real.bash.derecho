@@ -1,0 +1,16 @@
+#!/bin/bash
+# JER 20250612 LSM-RAD replay: real (template copied into the run directory by the workflow;
+# the workflow replaces the -A line with the yaml 'account').
+#PBS -N real
+#PBS -q main@desched1
+#PBS -l select=1:ncpus=128:mpiprocs=128
+#PBS -l walltime=1:00:00
+#PBS -j oe
+#PBS -A NTMA0002
+#PBS -l job_priority=economy
+cd $PBS_O_WORKDIR
+export TMPDIR=/glade/derecho/scratch/$USER/temp; mkdir -p $TMPDIR
+module list
+touch REAL_BEG
+mpiexec -n 128 ./real.exe
+touch REAL_END

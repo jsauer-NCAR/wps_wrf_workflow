@@ -1,0 +1,16 @@
+#!/bin/bash
+# JER 20250612 LSM-RAD replay: metgrid (template copied into the run directory by the workflow;
+# the workflow replaces the -A line with the yaml 'account').
+#PBS -N metgrid
+#PBS -q casper@casper-pbs
+#PBS -l select=1:ncpus=36:mpiprocs=36:mem=150GB
+#PBS -l walltime=1:00:00
+#PBS -j oe
+#PBS -A NTMA0002
+cd $PBS_O_WORKDIR
+export TMPDIR=/glade/derecho/scratch/$USER/temp; mkdir -p $TMPDIR
+module load openmpi
+module list
+touch METGRID_BEG
+mpirun -n 36 ./metgrid.exe
+touch METGRID_END

@@ -1,0 +1,14 @@
+#!/bin/bash
+# JER 20250612 LSM-RAD replay: ungrib (template copied into the run directory by the workflow;
+# the workflow replaces the -A line with the yaml 'account').
+#PBS -N ungrib
+#PBS -q casper@casper-pbs
+#PBS -l select=1:ncpus=1:mpiprocs=1:mem=20GB
+#PBS -l walltime=0:20:00
+#PBS -j oe
+#PBS -A NTMA0002
+cd $PBS_O_WORKDIR
+export TMPDIR=/glade/derecho/scratch/$USER/temp; mkdir -p $TMPDIR
+module load openmpi
+module list
+mpiexec -n 1 ./ungrib.exe

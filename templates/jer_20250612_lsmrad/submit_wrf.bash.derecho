@@ -1,0 +1,18 @@
+#!/bin/bash
+# JER 20250612 LSM-RAD replay: wrf (template copied into the run directory by the workflow;
+# the workflow replaces the -A line with the yaml 'account').
+#PBS -N wrf
+#PBS -q main@desched1
+#PBS -l select=8:ncpus=128:mpiprocs=128
+#PBS -l walltime=12:00:00
+#PBS -j oe
+#PBS -A NTMA0002
+#PBS -l job_priority=economy
+cd $PBS_O_WORKDIR
+export TMPDIR=/glade/derecho/scratch/$USER/temp; mkdir -p $TMPDIR
+# 19 virtual towers (same points as the FastEddy towerSpecsFile_latlon_v3.nc); the workflow does not copy tslist itself
+cp -p /glade/derecho/scratch/$USER/SERDP/wps_wrf_workflow/templates/jer_20250612_lsmrad/tslist .
+module list
+touch WRF_BEG
+mpiexec -n 1024 ./wrf.exe
+touch WRF_END
