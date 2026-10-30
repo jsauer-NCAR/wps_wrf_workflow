@@ -176,11 +176,11 @@ def main(wps_dir, run_dir, tmp_dir, nml_tmp, scheduler, hostname, account):
 		if not pathlib.Path('geogrid.log.0000').is_file() and not pathlib.Path('log_geogrid.o'+jobid).is_file():
 			time.sleep(long_time)
 
-		# Has the job ended without creating a log file?
-		if pathlib.Path('GEOGRID_END').is_file() and not pathlib.Path('geogrid.log.0000').is_file():
-			log.error('ERROR: geogrid.exe failed.')
-			log.error(f'Consult {run_dir}/geogrid.o{jobid} for potential error messages.')
-			sys.exit(1)
+			# Has the job ended without creating a log file?
+			if pathlib.Path('GEOGRID_END').is_file() and not pathlib.Path('geogrid.log.0000').is_file():
+				log.error('ERROR: geogrid.exe failed.')
+				log.error(f'Consult {run_dir}/geogrid.o{jobid} for potential error messages.')
+				sys.exit(1)
 		else:
 			log.info('geogrid is now running on the cluster . . .')
 			status = True
